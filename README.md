@@ -11,9 +11,25 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that fetch
 
 ## Installation
 
-### As a Claude Code Skill
+### Via [npx skills](https://github.com/vercel-labs/skills) (Recommended)
 
-Clone this repository into your Claude Code skills directory:
+```bash
+npx skills add konaito/surf-skills
+```
+
+Then install dependencies:
+
+```bash
+cd ~/.claude/skills/surf && bun install
+```
+
+You can also target a specific agent:
+
+```bash
+npx skills add konaito/surf-skills -a claude-code
+```
+
+### Manual Installation
 
 ```bash
 git clone https://github.com/konaito/surf-skills.git ~/.claude/skills/surf
@@ -21,13 +37,6 @@ cd ~/.claude/skills/surf && bun install
 ```
 
 Claude Code will automatically detect and load the skill from the `SKILL.md` file.
-
-### Standalone
-
-```bash
-git clone https://github.com/konaito/surf-skills.git
-cd surf-skills && bun install
-```
 
 ## Usage
 
