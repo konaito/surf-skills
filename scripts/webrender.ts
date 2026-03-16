@@ -34,7 +34,7 @@ for (let i = 0; i < args.length; i++) {
 
 if (!url) usage();
 
-const cdpUrl = process.env.ZAI_CDP_URL ?? DEFAULT_CDP_URL;
+const cdpUrl = process.env.SURF_CDP_URL ?? DEFAULT_CDP_URL;
 
 let browser;
 try {

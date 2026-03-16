@@ -2,7 +2,7 @@
 import { htmlToMarkdown, extractWithSelector } from "../lib/html-to-md.js";
 
 const USER_AGENT =
-  "Mozilla/5.0 (compatible; surf-skill/1.0; +https://github.com/surf-skill)";
+  "Mozilla/5.0 (compatible; surf-skills/1.0; +https://github.com/konaito/surf-skills)";
 
 function usage(): never {
   console.error("Usage: webread <url> [--selector <css>]");

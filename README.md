@@ -16,7 +16,7 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that fetch
 Clone this repository into your Claude Code skills directory:
 
 ```bash
-git clone https://github.com/<your-username>/surf-skills.git ~/.claude/skills/surf
+git clone https://github.com/konaito/surf-skills.git ~/.claude/skills/surf
 cd ~/.claude/skills/surf && bun install
 ```
 
@@ -25,7 +25,7 @@ Claude Code will automatically detect and load the skill from the `SKILL.md` fil
 ### Standalone
 
 ```bash
-git clone https://github.com/<your-username>/surf-skills.git
+git clone https://github.com/konaito/surf-skills.git
 cd surf-skills && bun install
 ```
 
@@ -88,7 +88,7 @@ lightpanda serve --host 127.0.0.1 --port 9222
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ZAI_CDP_URL` | CDP server WebSocket URL | `ws://127.0.0.1:9222` |
+| `SURF_CDP_URL` | CDP server WebSocket URL | `ws://127.0.0.1:9222` |
 
 ## How It Works
 

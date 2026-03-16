@@ -61,7 +61,7 @@ bun run ~/.claude/skills/surf/scripts/webrender.ts https://spa-app.com --wait-fo
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ZAI_CDP_URL` | Lightpanda CDP server WebSocket URL | `ws://127.0.0.1:9222` |
+| `SURF_CDP_URL` | Lightpanda CDP server WebSocket URL | `ws://127.0.0.1:9222` |
 
 ## Setup
 
