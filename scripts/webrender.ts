@@ -34,14 +34,35 @@ for (let i = 0; i < args.length; i++) {
 
 if (!url) usage();
 
-const cdpUrl = process.env.SURF_CDP_URL ?? DEFAULT_CDP_URL;
+const cdpUrlRaw = process.env.SURF_CDP_URL ?? DEFAULT_CDP_URL;
+
+/**
+ * Resolve a CDP base URL (e.g. ws://127.0.0.1:9222) to the full
+ * browserWSEndpoint by querying /json/version.  If the URL already
+ * contains a path (e.g. /devtools/browser/xxx), return it as-is.
+ */
+async function resolveCdpEndpoint(raw: string): Promise<string> {
+  const parsed = new URL(raw);
+  if (parsed.pathname !== "/" && parsed.pathname !== "") return raw;
+
+  const httpUrl = `http://${parsed.hostname}:${parsed.port}/json/version`;
+  const res = await fetch(httpUrl);
+  if (!res.ok) throw new Error(`GET ${httpUrl} → ${res.status}`);
+  const json = (await res.json()) as { webSocketDebuggerUrl?: string };
+  if (!json.webSocketDebuggerUrl) {
+    throw new Error(`/json/version did not return webSocketDebuggerUrl`);
+  }
+  return json.webSocketDebuggerUrl;
+}
 
 let browser;
 try {
+  const cdpUrl = await resolveCdpEndpoint(cdpUrlRaw);
   browser = await puppeteer.connect({ browserWSEndpoint: cdpUrl });
-} catch {
+} catch (e) {
   console.error(
-    `Cannot connect to CDP server at ${cdpUrl}.\n` +
+    `Cannot connect to CDP server at ${cdpUrlRaw}.\n` +
+      `${e instanceof Error ? e.message : String(e)}\n\n` +
       `Start a CDP-compatible browser:\n` +
       `  Chrome:     google-chrome --remote-debugging-port=9222\n` +
       `  Chromium:   chromium --remote-debugging-port=9222\n` +
