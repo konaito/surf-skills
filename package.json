@@ -1,0 +1,16 @@
+{
+  "name": "surf-skills",
+  "version": "1.0.0",
+  "description": "Claude Code skill for fetching web pages and converting them to Markdown",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@mozilla/readability": "^0.5.0",
+    "linkedom": "^0.18.0",
+    "puppeteer-core": "^24.39.1",
+    "turndown": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/turndown": "^5.0.0"
+  }
+}
