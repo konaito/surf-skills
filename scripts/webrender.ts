@@ -41,7 +41,11 @@ try {
   browser = await puppeteer.connect({ browserWSEndpoint: cdpUrl });
 } catch {
   console.error(
-    `Cannot connect to CDP server at ${cdpUrl}.\nStart Lightpanda with: lightpanda serve --host 127.0.0.1 --port 9222`
+    `Cannot connect to CDP server at ${cdpUrl}.\n` +
+      `Start a CDP-compatible browser:\n` +
+      `  Chrome:     google-chrome --remote-debugging-port=9222\n` +
+      `  Chromium:   chromium --remote-debugging-port=9222\n` +
+      `  Lightpanda: lightpanda serve --host 127.0.0.1 --port 9222`
   );
   process.exit(1);
 }

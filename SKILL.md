@@ -61,7 +61,7 @@ bun run ~/.claude/skills/surf/scripts/webrender.ts https://spa-app.com --wait-fo
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `SURF_CDP_URL` | Lightpanda CDP server WebSocket URL | `ws://127.0.0.1:9222` |
+| `SURF_CDP_URL` | CDP server WebSocket URL (any CDP-compatible browser) | `ws://127.0.0.1:9222` |
 
 ## Setup
 
@@ -71,8 +71,13 @@ Install dependencies (first time only):
 cd ~/.claude/skills/surf && bun install
 ```
 
-To use `webrender`, Lightpanda must be running:
+To use `webrender`, a CDP-compatible browser must be running on port 9222:
 
 ```bash
+# Option 1: Chrome / Chromium
+google-chrome --remote-debugging-port=9222 --headless
+# or: chromium --remote-debugging-port=9222 --headless
+
+# Option 2: Lightpanda (lightweight alternative)
 lightpanda serve --host 127.0.0.1 --port 9222
 ```

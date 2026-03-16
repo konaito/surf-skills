@@ -5,7 +5,7 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that fetch
 ## Features
 
 - **`webread`** — Fetch static HTML pages and convert to Markdown using [Readability](https://github.com/mozilla/readability) + [Turndown](https://github.com/mixmark-io/turndown)
-- **`webrender`** — Render JS-heavy pages via [Lightpanda](https://github.com/nicholasgasior/lightpanda) (headless browser) and convert to Markdown
+- **`webrender`** — Render JS-heavy pages via any CDP-compatible browser (Chrome, Chromium, [Lightpanda](https://github.com/nicholasgasior/lightpanda), etc.) and convert to Markdown
 - **CSS selector filtering** — Extract only the elements you need
 - **Claude Code integration** — Works as a Claude Code skill with automatic trigger detection
 
@@ -60,7 +60,7 @@ bun run scripts/webread.ts https://example.com --selector "article.main"
 
 ### webrender — JS-Rendered Page Fetching
 
-Connects to a Lightpanda (or any CDP-compatible) headless browser, renders the page with JavaScript, then converts to Markdown.
+Connects to any CDP-compatible headless browser (Chrome, Chromium, Lightpanda, etc.), renders the page with JavaScript, then converts to Markdown.
 
 ```bash
 bun run scripts/webrender.ts <url> [--selector <css>] [--wait-for <css>] [--timeout <ms>]
@@ -87,9 +87,17 @@ bun run scripts/webrender.ts https://spa-app.com --wait-for ".content-loaded" --
 ## Prerequisites
 
 - [Bun](https://bun.sh/) runtime
-- (For `webrender` only) A CDP-compatible headless browser such as [Lightpanda](https://github.com/nicholasgasior/lightpanda):
+- (For `webrender` only) A CDP-compatible browser with remote debugging enabled:
 
 ```bash
+# Option 1: Chrome / Chromium (most common)
+google-chrome --remote-debugging-port=9222 --headless
+# or: chromium --remote-debugging-port=9222 --headless
+
+# Option 2: macOS
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --headless
+
+# Option 3: Lightpanda (lightweight alternative)
 lightpanda serve --host 127.0.0.1 --port 9222
 ```
 
@@ -102,7 +110,7 @@ lightpanda serve --host 127.0.0.1 --port 9222
 ## How It Works
 
 1. **webread**: Uses native `fetch()` to download HTML, then passes it through Mozilla's Readability for content extraction and Turndown for HTML-to-Markdown conversion.
-2. **webrender**: Connects to a CDP headless browser via `puppeteer-core`, navigates to the URL, waits for network idle (and optionally a specific selector), then extracts the rendered HTML and converts it the same way.
+2. **webrender**: Connects to any CDP-compatible browser (Chrome, Chromium, Lightpanda, etc.) via `puppeteer-core`, navigates to the URL, waits for network idle (and optionally a specific selector), then extracts the rendered HTML and converts it the same way.
 
 Both scripts output the result to stdout, making them easy to pipe or capture.
 
